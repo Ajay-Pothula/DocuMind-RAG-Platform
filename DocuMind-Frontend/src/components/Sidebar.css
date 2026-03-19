@@ -1,0 +1,163 @@
+/* src/components/Sidebar.css */
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  border-right: 1px solid var(--border-color);
+  z-index: 10;
+}
+
+.brand-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.text-accent {
+  color: var(--accent-color);
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.upload-container {
+  margin-bottom: 1.5rem;
+}
+
+.upload-dropzone {
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(0, 229, 255, 0.02);
+}
+
+.upload-dropzone:hover {
+  border-color: var(--accent-color);
+  background: rgba(0, 229, 255, 0.05);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+}
+
+.icon {
+  margin-bottom: 0.5rem;
+}
+
+.uploading-state, .uploaded-state, .initial-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.file-name {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.upload-prompt {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Document Management Styling */
+.document-list {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.section-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.docs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.doc-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background: rgba(19, 26, 41, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    transition: all 0.2s ease;
+}
+
+.doc-item:hover {
+    background: rgba(19, 26, 41, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.doc-name {
+    flex-grow: 1;
+    font-size: 0.825rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.del-btn {
+    opacity: 0.5;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.doc-item:hover .del-btn {
+    opacity: 1;
+}
+
+.del-btn:hover {
+    transform: scale(1.1);
+    color: var(--error-color);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--success-color);
+  box-shadow: 0 0 8px var(--success-color);
+}
