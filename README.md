@@ -1,88 +1,104 @@
-# DocuMind: Enterprise Document RAG Backend
+# DocuMind AI: Full-Stack Enterprise RAG Platform
 
-DocuMind is a production-grade **Retrieval-Augmented Generation (RAG)** pipeline built on top of **FastAPI**. It allows enterprises to securely upload raw PDF documents, instantly vectorize their knowledge into **ChromaDB**, and chat directly with that corporate knowledge using the **Groq LLM API**.
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-FF6B6B?style=for-the-badge)
+![Groq](https://img.shields.io/badge/Groq-000000?style=for-the-badge&logo=ai)
 
-This acts as a high-leverage ML Engineering portfolio project demonstrating Applied NLP, Vector Space Search, and intelligent Agentic Architecture.
+An end-to-end full-stack Retrieval-Augmented Generation (RAG) platform that enables users to upload, manage, and interactively query large PDF documents. This system acts as a stateful, highly intelligent document assistant.
 
----
-
-## Architecture Flow
-
-1. **Ingestion (`POST /documents/upload`)**
-   - Receives raw `.pdf` files.
-   - Parses pure text via the highly-performant `PyMuPDF` engine.
-   - Splits document text using `langchain`'s `RecursiveCharacterTextSplitter`.
-   - Embeds the chunks using `sentence-transformers` (`all-MiniLM-L6-v2`) and saves them persistently to an onboard **ChromaDB**.
-
-2. **Generation (`POST /ai/chat`)**
-   - Receives a user's prompt.
-   - Converts the prompt into a semantic vector and searches ChromaDB for the Top-K matching corporate knowledge chunks.
-   - Injects the proprietary context directly into the Groq LLM `system` prompt securely.
-   - Returns an intelligent, hallucination-free answer.
+## Features
+- **Semantic Search Engine:** Ingests and chunks 100+ page PDF documents into highly optimized embeddings using HuggingFace sentence models.
+- **Stateful Vector Persistence:** Utilizes ChromaDB to retain document embeddings across active sessions. You don't have to re-process historical PDFs.
+- **Lightening-Fast AI:** Integrates Groq LLM API to deliver hallucination-free, highly accurate generative answers with sub-second retrieval latency.
+- **RESTful Architecture:** Features an asynchronous FastAPI backend for full lifecycle management of vectorized documents (POST/DELETE operations).
+- **Responsive UI:** A dynamic React-based frontend providing a seamless, real-time ChatGPT-like user experience.
 
 ---
 
-## Installation & Setup
+## 📂 Repository Structure
 
-Before you begin, ensure you have **Python 3.9+** installed.
+This is a mono-repo containing both the React Frontend and the FastAPI Backend.
 
-### 1. Create a Virtual Environment
-
-```bash
-python -m venv venv
-venv\Scripts\activate
+```text
+DocuMind/
+│
+├── frontend/           # React + Vite User Interface
+│   ├── src/
+│   ├── package.json
+│   └── ...
+│
+└── backend/            # Python FastAPI + LangChain Server
+    ├── app/
+    ├── requirements.txt
+    └── ...
 ```
-
-### 2. Install the RAG Dependencies
-
-```bash
-pip install fastapi uvicorn pydantic requests python-dotenv langchain chromadb PyMuPDF sentence-transformers
-```
-
-### 3. Configure the Environment
-
-Create a `.env` file in the root folder and add your Groq API Key:
-
-```env
-GROQ_API_KEY=gsk_your_actual_api_key_here
-GROQ_MODEL=llama-3.1-8b-instant
-GROQ_BASE_URL=https://api.groq.com/openai/v1/chat/completions
-```
-
-> Get a free, blazing-fast inference API key at [console.groq.com](https://console.groq.com)
 
 ---
 
-## Running the Server
+## 🚀 Getting Started
 
-Make sure your virtual environment is activated (`venv\Scripts\activate`), then run:
+To run this application, you will need to start both the `backend` and `frontend` servers in two separate terminal windows.
 
-```bash
-uvicorn app.main:app --reload --port 8001
-```
+### 1. Build and Run the Backend (FastAPI)
 
-The RAG backend is now live at **http://localhost:8001**.
-The ChromaDB persistent Vector Store will automatically be initialized inside `/app/data/chroma_db`.
+1. Open a terminal and navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Create and activate a Python virtual environment:
+   ```bash
+   # Windows
+   python -m venv venv
+   .\venv\Scripts\activate
+   
+   # Mac/Linux
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+3. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Environment Variables:** Create a `.env` file in the `backend` root directory and add your Groq API Key:
+   ```env
+   GROQ_API_KEY=your_api_key_here
+   ```
+5. Start the FastAPI server:
+   ```bash
+   uvicorn app.main:app --reload
+   ```
+   *The backend API will be live at `http://localhost:8000`. You can view interactive API documentation at `http://localhost:8000/docs`.*
+
+### 2. Build and Run the Frontend (React)
+
+1. Open a **second, new terminal window** and navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install the necessary Node modules:
+   ```bash
+   npm install
+   ```
+3. Start the Vite development server:
+   ```bash
+   npm run dev
+   ```
+   *The stunning UI will be live at `http://localhost:5173/`.*
 
 ---
 
-## Interacting with the Pipeline (Swagger UI)
+## 🛠️ Tech Stack & Architecture
 
-Navigate to **http://localhost:8001/docs** to test the full pipeline directly in your browser.
+- **Frontend:** React, Vite, CSS
+- **Backend API:** FastAPI, Uvicorn, Python
+- **AI & ML Pipeline:** LangChain, PyMuPDF (PDF ingestion), SentenceTransformers (Embeddings)
+- **Vector Database:** ChromaDB
+- **LLM Interface:** Groq API
 
-### Step 1: Upload a PDF to the Vector Database
-1. Expand the green **`POST /documents/upload`** box.
-2. Click **"Try it out"**.
-3. Choose a `.pdf` file from your device (e.g., a company handbook, resume, or manual).
-4. Click **Execute**. The system will silently slice it and embed it into Chroma.
+## 📝 Usage
 
-### Step 2: Chat with your Document
-1. Expand the green **`POST /ai/chat`** box.
-2. Click **"Try it out"**.
-3. Ask a question regarding the PDF you just uploaded:
-```json
-{
-  "prompt": "What are the core requirements listed in this resume?"
-}
-```
-4. Click **Execute** to see the contextualized AI response!
+1. Open the UI at `http://localhost:5173/`
+2. Use the left sidebar to **Upload** your target PDF document.
+3. Once the document chunks are vectorized and stored in ChromaDB, ask natural language questions in the main Chat Area to interrogate your document natively!
