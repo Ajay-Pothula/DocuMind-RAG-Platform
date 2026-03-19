@@ -3,3 +3,8 @@ uvicorn
 pydantic
 requests
 python-dotenv
+pymupdf
+langchain-text-splitters
+chromadb
+sentence-transformers
+python-multipart
