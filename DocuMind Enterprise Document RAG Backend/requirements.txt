@@ -8,3 +8,5 @@ langchain-text-splitters
 chromadb
 sentence-transformers
 python-multipart
+boto3
+pinecone
