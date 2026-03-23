@@ -1,7 +1,7 @@
 // src/components/ChatArea.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+// import ReactMarkdown from 'react-markdown';
 import { chatWithAI } from '../services/api';
 import './ChatArea.css';
 
@@ -73,7 +73,7 @@ export default function ChatArea({ isReady }) {
             <div className="message-content-group">
                 <div className={`message-bubble ${msg.role === 'ai' ? 'glass ai-bubble' : 'user-bubble'}`}>
                   {msg.role === 'ai' ? (
-                      <ReactMarkdown className="markdown-body">{msg.content}</ReactMarkdown>
+                      <div className="markdown-body" style={{ whiteSpace: 'pre-wrap' }}>{msg.content}</div>
                   ) : (
                       msg.content
                   )}
